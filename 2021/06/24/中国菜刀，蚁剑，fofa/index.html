@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>中国菜刀，蚁剑，fofa | Jumbo&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="最近因为工作原因，接触了好多从来听也没有听过的名词。以前考OSCP和OSCE的时候，基本上都是针对Linux系统的操作方法。举个简单的例子，通过HTTP服务之后拿到webshell或者reverseshell，发现目标服务器是linux based服务器，之后我就会很自然的找到一个有读写权限的地方（shm或者etc）然后上传LinEnum.sh来dump目标服务器的信息，从而为提权和长时间控制提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="中国菜刀，蚁剑，fofa">
+<meta property="og:url" content="http://bymuzili.com/2021/06/24/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80%EF%BC%8C%E8%9A%81%E5%89%91%EF%BC%8Cfofa/index.html">
+<meta property="og:site_name" content="Jumbo&#39;s blog">
+<meta property="og:description" content="最近因为工作原因，接触了好多从来听也没有听过的名词。以前考OSCP和OSCE的时候，基本上都是针对Linux系统的操作方法。举个简单的例子，通过HTTP服务之后拿到webshell或者reverseshell，发现目标服务器是linux based服务器，之后我就会很自然的找到一个有读写权限的地方（shm或者etc）然后上传LinEnum.sh来dump目标服务器的信息，从而为提权和长时间控制提供">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-24T13:03:43.000Z">
+<meta property="article:modified_time" content="2022-03-02T13:12:03.440Z">
+<meta property="article:author" content="Jumbo">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Jumbo's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jumbo&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Small Fly Dream</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://bymuzili.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-中国菜刀，蚁剑，fofa" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/06/24/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80%EF%BC%8C%E8%9A%81%E5%89%91%EF%BC%8Cfofa/" class="article-date">
+  <time class="dt-published" datetime="2021-06-24T13:03:43.000Z" itemprop="datePublished">2021-06-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      中国菜刀，蚁剑，fofa
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>最近因为工作原因，接触了好多从来听也没有听过的名词。以前考OSCP和OSCE的时候，基本上都是针对Linux系统的操作方法。举个简单的例子，通过HTTP服务之后拿到webshell或者reverseshell，发现目标服务器是linux based服务器，之后我就会很自然的找到一个有读写权限的地方（shm或者etc）然后上传LinEnum.sh来dump目标服务器的信息，从而为提权和长时间控制提供线索。</p>
+<p>因为工作原因，最近接触需要接触很多没听说过的东西（I don’t know what I don’t know）。然后再搜索他们的同时经常就会遇到一些词汇，什么直接上菜刀链接，通过fofa找到C段旁站。我就很好奇，这些特么都是什么玩意。</p>
+<p>静下心来好好整理了一把，主要有一下三个：（如果以后有更多感兴趣的就再写吧）</p>
+<ol>
+<li>中国菜刀</li>
+<li>AntSword蚁剑</li>
+<li>fofa</li>
+</ol>
+<h1 id="中国菜刀"><a href="#中国菜刀" class="headerlink" title="中国菜刀"></a>中国菜刀</h1><p>读很多文章的时候，发现经常有人说什么，上菜刀链接，搞定。问了一下周围学安全的同学，得到的回答菜刀不是违禁品吗？</p>
+<p>查了一下，官方的github最后的版本是2016年的，之后貌似没有找到更新的版本。除此之外同一个git资料库下面还有2011和2014的版本。菜刀链接主要是针对php以及asp的网页，理论上讲只要能通过上传一个webshell能进行交互，一般性都没有问题。</p>
+<p>我自己的认知里面应该有一下这几种方法：</p>
+<ol>
+<li>通过漏洞上传</li>
+<li>通过解析漏洞上传</li>
+<li>通过PUT这个RESTful API 上传</li>
+</ol>
+<p>上传之后，只要在特定位置放入链接，就可以基本上拿到整个网站的拓扑图。</p>
+<p>16年之后虽然没有继续更新，但是还有更多的比如CNKnife，中国小刀之类的拓展。因为网上找的很多版本容易有后门，所以我并没有去运行，只是理论上了解了一下。</p>
+<h1 id="AntSword蚁剑"><a href="#AntSword蚁剑" class="headerlink" title="AntSword蚁剑"></a>AntSword蚁剑</h1><p>Credit: <a target="_blank" rel="noopener" href="https://www.yuque.com/antswordproject/antsword/kybgpb">https://www.yuque.com/antswordproject/antsword/kybgpb</a></p>
+<p>之所以不测试中国菜刀是因为我知道蚁剑也有差不多的功能，相比于蚁剑，他本身是一个开源的项目，更加的安全。从官方的GitHub下载后验证md5值，确保没有被修改。</p>
+<p>使用方法类似，上传一个webshell之后，在加载器那边直接输入相应的链接和和webshell，然后便可以直接拿到整个网站的拓扑。因为没有深入了解中国菜刀，所以一下的优点并不是对比之后的优点，而且本身我觉得比较好的几个蚁剑有的优点。</p>
+<p><strong>可以设置代理</strong></p>
+<ul>
+<li>连接处于内网中的Shell</li>
+<li>加快连接速度</li>
+<li>隐藏自身</li>
+<li>与 BurpSuite 等工具配合使用</li>
+</ul>
+<p>可以分类目录</p>
+<p>可以模拟终端（可配置）</p>
+<p>可以直接接入数据库，并且以树状的方式显示</p>
+<p>有一堆插件 - phpinfo, PortScan</p>
+<p>其实光光文件管理这一项就让我大开眼界了，以前只是针对linux服务器会在拿到webshell之后用LinEnum.sh来获取目标信息，但也不一定全面。</p>
+<p>右击可以直接通过wget来下载和上传需要的文件，用于提权或者维持后门。</p>
+<h1 id="fofa"><a href="#fofa" class="headerlink" title="fofa"></a>fofa</h1><p>简单来说就是个搜索引擎，与一般的引擎不同的是不是基于关键词的搜索。相对的，他是基于某个网络名词进行特定的搜索。比如搜索指定ip，指定域名domain等等。简单来说因为他可以制定目标进行搜索，某种程度上算是一种fuzzing。</p>
+<p>其中我觉得最具有攻击性的应该是对指定的域名进行搜索。<a target="_blank" rel="noopener" href="http://比如我搜索qq.com/">比如我搜索qq.com</a>，<a target="_blank" rel="noopener" href="http://结果中就会出现abc.qq.com或者cde.qq.com/">结果中就会出现abc.qq.com或者cde.qq.com</a>。这种子域名可能在正常情况下不访问特定服务是没有办法被发现的。这就是所谓的通过fofa来找C段的旁站。一般情况下，旁站的安全系数会比主站的系统底，以及旁站可能更加容易泄露信息或者攻陷。我们可以把旁站作为一个跳板，然后去攻陷主站。</p>
+<p>还有一点就是fofa其实是收费的。。。普通会员最多智能下载一百条信息，但是一般性来说应该就是够用了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bymuzili.com/2021/06/24/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80%EF%BC%8C%E8%9A%81%E5%89%91%EF%BC%8Cfofa/" data-id="cl09lay0q000tj0gxe2hn95sy" data-title="中国菜刀，蚁剑，fofa" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Notes/" rel="tag">Notes</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/06/29/WebApp-Penetration-testing-Checklist/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          WebApp Penetration testing Checklist
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/23/etcd%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">etcd学习笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/" rel="tag">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/" rel="tag">Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Notes/" style="font-size: 20px;">Notes</a> <a href="/tags/Reflection/" style="font-size: 15px;">Reflection</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/02/test-long/">test long</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/11/%E9%9D%A2%E8%AF%95%E5%AE%98-Tips/">面试官 Tips</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/07/Fortify%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Fortify学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/29/WebApp-Penetration-testing-Checklist/">WebApp Penetration testing Checklist</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/24/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80%EF%BC%8C%E8%9A%81%E5%89%91%EF%BC%8Cfofa/">中国菜刀，蚁剑，fofa</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Jumbo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

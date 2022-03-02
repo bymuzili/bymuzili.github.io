@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Fortify学习笔记 | Jumbo&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前言，思考之前做Code Audit的时候，用的是Checkmarx，而且是站在乙方的角度。而最近在新公司，站在甲方的角度用另一个同样著名的软件Fortify去做的时候，让我有了不一样的思考。 这个不一样不是因为我使用的软件不同了，软件层面上，当两个软件都具有一定的市场竞争力的时候，他们的功能就大同小异了。主要的差别，最大的还是来自甲乙方的责任与态度。 先说说乙方。在乙方做测试的时候非常简单，你">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fortify学习笔记">
+<meta property="og:url" content="http://bymuzili.com/2021/07/07/Fortify%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Jumbo&#39;s blog">
+<meta property="og:description" content="前言，思考之前做Code Audit的时候，用的是Checkmarx，而且是站在乙方的角度。而最近在新公司，站在甲方的角度用另一个同样著名的软件Fortify去做的时候，让我有了不一样的思考。 这个不一样不是因为我使用的软件不同了，软件层面上，当两个软件都具有一定的市场竞争力的时候，他们的功能就大同小异了。主要的差别，最大的还是来自甲乙方的责任与态度。 先说说乙方。在乙方做测试的时候非常简单，你">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-07T12:56:22.000Z">
+<meta property="article:modified_time" content="2022-03-02T13:12:03.440Z">
+<meta property="article:author" content="Jumbo">
+<meta property="article:tag" content="Reflection">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Jumbo's blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jumbo&#39;s blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Small Fly Dream</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://bymuzili.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Fortify学习笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/07/07/Fortify%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2021-07-07T12:56:22.000Z" itemprop="datePublished">2021-07-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Fortify学习笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><h1 id="前言，思考"><a href="#前言，思考" class="headerlink" title="前言，思考"></a>前言，思考</h1><p>之前做Code Audit的时候，用的是Checkmarx，而且是站在乙方的角度。而最近在新公司，站在甲方的角度用另一个同样著名的软件Fortify去做的时候，让我有了不一样的思考。</p>
+<p>这个不一样不是因为我使用的软件不同了，软件层面上，当两个软件都具有一定的市场竞争力的时候，他们的功能就大同小异了。主要的差别，最大的还是来自甲乙方的责任与态度。</p>
+<p>先说说乙方。在乙方做测试的时候非常简单，你给我代码，无论是在你给我提供的电脑上，还是你把代码整个都给我，无所谓。我需要做的就是把代码跑一遍，然后把所有跑出来的结果再进行一一的验证。这样做一般性都是project based，不存在重复性，所以每次做都是崭新的一次，每次花的时间都是根据代码的总长度而言。所需要的技术一般性就是阅读代码的技术，但是这个往往是不够的，还需要做大量的搜索，甚至于需要开发的帮助。</p>
+<p>然后对甲方而言，情况就大不相同了。首先，甲方这边不是project based的，不是完成一次项目，下一个就完全不一样了。很大的概率上来讲，是存在重复性的。其次，这样的项目一般性都不太可能让开发把代码一个个丢给你，然后你一个个去扫，再看。很大程度上是需要自动化，整合到CICID。经验上来讲，这种直接把代码丢进去的扫描，扫出来的结果会有非常高的误报率。所以做甲方的代码审计，需要在初期建立各种各样的规则来降低误报率，这样自动化扫描才会变得有意义。</p>
+<p>因为Fortify是我之前从来没有用过的软件，所以我花了些时间学习了一下并且做了以下的笔记。</p>
+<h2 id="如何降低误报率"><a href="#如何降低误报率" class="headerlink" title="如何降低误报率"></a>如何降低误报率</h2><p>Fortify降低误报率的办法有两种，分别是使用Cleanse Rules或者使用Audit Template：</p>
+<h3 id="Cleanse-Rules"><a href="#Cleanse-Rules" class="headerlink" title="Cleanse Rules"></a>Cleanse Rules</h3><p>当在查阅一个扫描结果的时候，如果我们很确定这个结果是一个误报，那么我们可以把这个结果加入Cleanse Rules，达到不报警的目的。这种办法可以细致到某个package，某个class，某个function为止：</p>
+<p>路径： Administration → Advanced Audit Tools → Dataflow Cleanse Rules</p>
+<p>应用场景：</p>
+<ol>
+<li>对被调用的共同库所使用，这样的使用结果可以避免公共库在不同的场景下被调用时，对每一次都发生报警。</li>
+<li>对内部，不重要的代码使用。如果报警对象是内部使用，威胁等级不高以及可以确定逻辑上哪怕没利用的情况下也不会有任何威胁的代码。这样做到目的是有时候修改代码容易导致一系列别的问题，比如downtime以及修改之后别的地方的问题。如果这样的代码存在问题但是几乎是没有影响的话，可以选择加入Cleanse Rules来规避。</li>
+</ol>
+<h2 id="Audit-Template"><a href="#Audit-Template" class="headerlink" title="Audit Template"></a>Audit Template</h2><p>当查阅到某个扫描结果的时候，如果我们感觉这个结果的分级或者威胁等级不符合，那么我们可以创造一个Audit Template。</p>
+<p>有两种办法来创造Audit Template：</p>
+<ol>
+<li>Audit Tools → Add a rule</li>
+<li>From the issue → Add audit filter</li>
+</ol>
+<p>相较于Cleanse Rule，这样做更多的目的是在满足某一条件的时候，对目标报警进行更多的操作处理，而不是仅仅是忽略。类似于If-else的逻辑。</p>
+<h2 id="如何把扫描结果自动应用成各个类型"><a href="#如何把扫描结果自动应用成各个类型" class="headerlink" title="如何把扫描结果自动应用成各个类型"></a>如何把扫描结果自动应用成各个类型</h2><p>人工审核每一个扫描的结果是一件非常费时费力的事情。一个应用程式往往会有成百上千的报警。在这种情况下我们可以启用Audit Assistant</p>
+<p>路径： Administration → Variables → Audit Assistant</p>
+<p>首先我们要先启用Audit Assistant, 然后对每个需要进行分类的报警点选auto-apply，这样短时间内我们就可以对所有的报警通过ML分类成下面五大类。根据Fortify自己的介绍，这样分类有着超过99%的准确率，但是实际上手还是要结合公司环境来看。</p>
+<h2 id="如何判断扫描结果的类型"><a href="#如何判断扫描结果的类型" class="headerlink" title="如何判断扫描结果的类型"></a>如何判断扫描结果的类型</h2><p>Credit: Security Code Review Guidelines - <a target="_blank" rel="noopener" href="https://adam.shostack.org/review.html#code-reliability">https://adam.shostack.org/review.html#code-reliability</a></p>
+<p>仔细研究了一下代码审计，所有扫出来的问题还需要人工进行以下几个分类，有些比较熟悉，有些却比较陌生，需要研究</p>
+<ul>
+<li><p><strong>Not an Issue (False Positive, or other)</strong></p>
+<ul>
+<li>False Positive，误报，没有什么可以说的</li>
+</ul>
+</li>
+<li><p><strong>Reliability Issue</strong></p>
+<p>相对于安全问题而言，代码存在可靠性的问题，比如没有检查变量类型，没有handle exception之类。这些代码存在潜在性的问题，一旦发生之后有可能造成系统运营商的影响，比如系统瘫痪之类的。</p>
+<p>For Example:</p>
+<ol>
+<li>System calls should have their return status checked.</li>
+<li>Signals should be caught and handled.</li>
+<li>Multithreaded code should use mutex() calls on globals.</li>
+<li>C++ classes should have a constructor, destructor, (??)</li>
+<li>Configuration information should be in a configuration file, not hardcoded into the program. See the section on configuration files.</li>
+<li>The year 2000 is real soon now. Leap years happen every four years. Daylight savings may move the clock back an hour annually.</li>
+<li>Functions should perform bounds checking.</li>
+<li>umask should be set to a restrictive value.</li>
+<li>UIDs should never be -1, which can sometimes happen if you have insufficient type strength, or otherwise try putting UID 65535 in a short.</li>
+</ol>
+</li>
+<li><p><strong>Bad Practice</strong></p>
+<p>每一种语言都有一定自己的规范，violate这些规范就会导致Bad Practice</p>
+<ul>
+<li>对于Bad Practice的判断需要一定的开发经验，如果没有相关经验的话，最好做一些搜索来辅助判断</li>
+<li>对于特定的编程语言加上bad practice就能搜出一大堆来</li>
+</ul>
+</li>
+<li><p><strong>Suspicious</strong></p>
+<p>如果仅从代码的角度显示已经是可以被exploit的，但是因为无法确定变量所以没有办法100%来确定是否可以exploit</p>
+</li>
+<li><p><strong>Exploitable</strong></p>
+<p>所扫描的代码已经确认是可以被Exploited，十分肯定或者已经通过别的工具攻击成功</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://bymuzili.com/2021/07/07/Fortify%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="cl09lay0a0003j0gx73pp78h7" data-title="Fortify学习笔记" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/07/11/%E9%9D%A2%E8%AF%95%E5%AE%98-Tips/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          面试官 Tips
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/29/WebApp-Penetration-testing-Checklist/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">WebApp Penetration testing Checklist</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/" rel="tag">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/" rel="tag">Notes</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reflection/" rel="tag">Reflection</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/Notes/" style="font-size: 20px;">Notes</a> <a href="/tags/Reflection/" style="font-size: 15px;">Reflection</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">March 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/03/02/test-long/">test long</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/11/%E9%9D%A2%E8%AF%95%E5%AE%98-Tips/">面试官 Tips</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/07/Fortify%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Fortify学习笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/29/WebApp-Penetration-testing-Checklist/">WebApp Penetration testing Checklist</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/24/%E4%B8%AD%E5%9B%BD%E8%8F%9C%E5%88%80%EF%BC%8C%E8%9A%81%E5%89%91%EF%BC%8Cfofa/">中国菜刀，蚁剑，fofa</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 Jumbo<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
